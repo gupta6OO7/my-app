@@ -7,6 +7,7 @@ router.post('/addProduct', async (req, res) => {
     try {
         
         await Product.create({
+            Product_Id: req.body.product_id,
             Name: req.body.name,
             Price: req.body.price,
             Featured: req.body.featured,
@@ -36,7 +37,8 @@ router.get('/getAllProducts', async (req, res) => {
 router.post('/updateProduct', async (req, res) => {
     try {
 
-        await Product.findByIdAndUpdate(req.body.productId, {
+        const my_product = await Product.find({ Product_Id: req.body.product_id});
+        await Product.findByIdAndUpdate(my_product[0]._id, {
             Name: req.body.name,
             Price: req.body.price,
             Featured: req.body.featured,
@@ -56,7 +58,8 @@ router.post('/updateProduct', async (req, res) => {
 router.post('/deleteProduct', async (req, res) => {
     try {
 
-        await Product.findByIdAndDelete(req.body.productId);
+        const my_product = await Product.find({ Product_Id: req.body.product_id});
+        await Product.findByIdAndDelete(my_product[0]._id);
 
         res.json({ success: true });
     }

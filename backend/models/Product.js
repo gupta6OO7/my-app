@@ -3,6 +3,11 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const ProductSchema = new Schema({
+    Product_Id:{
+        type: String,
+        required: true,
+        unique: true
+    },
     Name:{
         type: String,
         required: true
